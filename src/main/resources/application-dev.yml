@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: todos-app
+  datasource:
+    url: jdbc:postgresql://ep-royal-cherry-030117.us-east-2.aws.neon.tech:5432/neondb
+    username: lnd2409
+    password: Rcs7OV6aXomj
+
