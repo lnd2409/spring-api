@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "spring.server",
+      "type": "java.lang.String",
+      "description": "Description for spring.server."
+  }
+] }
