@@ -6,5 +6,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface IPlayingWithNeonService {
-    Map<String, List<PlayingWithNeonEntity>> check();
+    List<PlayingWithNeonEntity> check();
 }
