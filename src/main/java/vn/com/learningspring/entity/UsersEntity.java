@@ -1,26 +1,26 @@
 package vn.com.learningspring.entity;
-
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
-
+import jp.sf.amateras.mirage.annotation.Column;
+import jp.sf.amateras.mirage.annotation.PrimaryKey;
+import jp.sf.amateras.mirage.annotation.PrimaryKey.GenerationType;
+import jp.sf.amateras.mirage.annotation.Table;
 @Getter
 @Setter
 @Table(name = "users")
 public class UsersEntity {
-    @Column("id")
+    @Column(name = "id")
     @Id
     private Long id;
 
-    @Column("username")
+    @Column(name = "username")
     private String username;
 
-    @Column("password")
+    @Column(name = "password")
     private String password;
 
 
-    @Column("email")
+    @Column(name = "email")
     private String email;
 }

@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.com.learningspring.base.AbstractRest;
 import vn.com.learningspring.common.CommonConstant;
 import vn.com.learningspring.controller.IApiPlayingWithNeonRest;
+import vn.com.learningspring.dto.SearchDto;
+import vn.com.learningspring.dto.rest.common.DtsApiResponse;
 import vn.com.learningspring.entity.PlayingWithNeonEntity;
+import vn.com.learningspring.entity.UsersEntity;
 import vn.com.learningspring.services.IPlayingWithNeonService;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @Api(tags = "Playing With Neon")
@@ -28,15 +30,18 @@ public class ApiPlayingWithNeonRestImpl extends AbstractRest implements IApiPlay
 
     @GetMapping("/test")
     @ResponseBody
-    public ResponseEntity<?> testApi() {
+    public DtsApiResponse testApi() {
         long took = System.currentTimeMillis();
         try {
-            List<PlayingWithNeonEntity> result = iPlayingWithNeonService.check();
-            return this.handlerSuccess(CommonConstant.SUCCESS_CODE, CommonConstant.SUCCESS_MSG,result,took);
+//            List<PlayingWithNeonEntity> result = iPlayingWithNeonService.check();
+            SearchDto searchDto = new SearchDto();
+            searchDto.setPage(1L);
+            searchDto.setSize(10L);
+            List<UsersEntity> result = iPlayingWithNeonService.getAll(searchDto);
+            return this.handlerSuccess(result, took);
         }catch (Exception ex) {
             logger.error(ex.getMessage());
-            return this.handlerException(CommonConstant.EXCEPTION_CODE, CommonConstant.EXCEPTION_MSG, ex.getMessage(), took);
+            return this.handlerException(CommonConstant.EXCEPTION_CODE, ex.getMessage());
         }
-
     }
 }

@@ -1,27 +1,21 @@
 package vn.com.learningspring.base;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
-import vn.com.learningspring.common.ApiResponse;
-import java.util.Objects;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import vn.com.learningspring.constants.DtsConstant;
+import vn.com.learningspring.dto.rest.common.DtsApiResponse;
+
+import java.util.Locale;
+import java.util.Optional;
 
 public abstract class AbstractRest {
-    protected <T> ResponseEntity<?> handlerSuccess(int codeStatus, String messageStatus, T data, Long took) {
-        ApiResponse response = new ApiResponse();
-        response.setCodeStatus(codeStatus);
-        response.setMessageStatus(messageStatus);
-        response.setData(data);
-        response.setTook(System.currentTimeMillis() - took);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+
+    public DtsApiResponse handlerSuccess(Object data, long start) {
+        long took = System.currentTimeMillis() - start;
+        return new DtsApiResponse(DtsConstant.SUCCESS_CODE, DtsConstant.SUCCESS, "", took, data);
     }
 
-    protected ResponseEntity<?> handlerException(int codeStatus, String messageStatus, String exMsg, Long took) {
-        ApiResponse response = new ApiResponse();
-        response.setCodeStatus(codeStatus);
-        response.setMessageStatus(messageStatus);
-        response.setDescription(exMsg);
-        response.setTook(System.currentTimeMillis() - took);
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    public DtsApiResponse handlerException(int codeStatus, String message) {
+        return new DtsApiResponse(codeStatus, message, null, 0);
     }
 }
